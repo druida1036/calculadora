@@ -3,6 +3,7 @@ package co.edu.calculadora.servicio;
 import co.edu.calculadora.excepcion.ParamtroInvalidado;
 import co.edu.calculadora.modelo.Operable;
 import co.edu.calculadora.modelo.OperacionTipo;
+import co.edu.calculadora.modelo.Resta;
 import co.edu.calculadora.modelo.Suma;
 
 public class CalculadoraServicios {
@@ -11,7 +12,8 @@ public class CalculadoraServicios {
 		switch (tipo) {
 		case SUMA:
 			return new Suma();
-
+		case RESTA:
+			return new Resta();
 		default:
 			return new Suma();
 		}

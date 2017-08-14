@@ -5,9 +5,9 @@ import java.util.List;
 
 public abstract class Operacion implements Operable {
 
-	List<Paramtero> paramteros = new ArrayList<Paramtero>();
+	List<Parametro> paramteros = new ArrayList<Parametro>();
 
-	public void agregarParametro(Paramtero parametro) {
+	public void agregarParametro(Parametro parametro) {
 		this.paramteros.add(parametro);
 	}
 

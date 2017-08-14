@@ -9,10 +9,10 @@ public class Suma extends Operacion {
 
 	public String mostarResultado() {
 		int total = 0;
-		for (Paramtero paramtero : paramteros) {
+		for (Parametro paramtero : paramteros) {
 			total = total+(paramtero.getValor()*paramtero.getSigno());
 		}
-		return null;
+		return new Integer(total).toString();
 	}
 
 	public int contarParamteros() {
