@@ -11,24 +11,64 @@ import co.edu.calculadora.modelo.Parametro;
 
 public class Vista {
 
-	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		Calculadora calculadora = new Calculadora();
+	private Calculadora calculadora;
 
-		System.out.println("Bienvenido escoja una operacion:");
-		System.out.println(Arrays.toString(OperacionTipo.values()));
-		while (scanner.hasNext()) {
+	public void ejecutar() {
+		Scanner scanner = new Scanner(System.in);
+		calculadora = new Calculadora();
+
+		System.out.println("Master Calculator Bienvenido!!!");
+		boolean flag = true;
+		while (flag) {
+			System.out.println("Por favor seleccione una operacion:");
+			System.out.println(Arrays.toString(OperacionTipo.values()));
 			System.out.println();
-			String linea = scanner.next();
-			if (linea.equalsIgnoreCase("q")) {
+			String valor = scanner.next();
+			flag = validarSalida(valor);
+			if (!flag) {
 				break;
 			}
+			Operable operacion = crearOperacion(valor);
+			cargarParametros(operacion, scanner);
+			calcularResultado(operacion, scanner);
 
-			System.out.println("valor: " + linea);
-			Operable operacion = calculadora.obtener(linea);
-			for (int i = 0; i < operacion.obtenerNumeroParamteros(); i++) {
+		}
+	}
+
+	private boolean validarSalida(String valor) {
+		if (valor.equalsIgnoreCase("q")) {
+			System.out.println("Gracias por usar nuestros servicios");
+			System.out.println("Vuelva pronto!!!");
+			return false;
+		}
+		return true;
+	
+	}
+
+	private void calcularResultado(Operable operacion, Scanner scanner) {
+		if (operacion != null) {
+			try {
+				System.out.println("Resultado: " + calculadora.calcular(operacion));
+			} catch (ParamtroInvalidado e) {
+				System.out.println("Error al calcular la operacion");
+			}
+		}
+	}
+
+	private Operable crearOperacion(String valor) {
+		try {
+			return calculadora.obtener(valor);
+		} catch (Exception e) {
+			System.out.println("Ha seleccionado una operacion incorrecta");
+		}
+		return null;
+	}
+
+	private void cargarParametros(Operable operacion, Scanner scanner) {
+		if (operacion != null) {
+			while (operacion.contarParamteros() < operacion.obtenerNumeroParamteros()) {
 				System.out.println("Ingrese un numero");
-				linea = scanner.next();
+				String linea = scanner.next();
 				try {
 					Parametro parametro = new Parametro(Integer.parseInt(linea));
 					operacion.agregarParametro(parametro);
@@ -37,16 +77,11 @@ public class Vista {
 				}
 
 			}
-			
-			try {
-				System.out.println("Resultado: " + calculadora.calcular(operacion));
-			} catch (ParamtroInvalidado e) {
-				System.out.println("Error al calcular la operacion");
-			}
-
-			
 		}
-		scanner.close();
+	}
+
+	public static void main(String[] args) {
+		new Vista().ejecutar();
 	}
 
 }

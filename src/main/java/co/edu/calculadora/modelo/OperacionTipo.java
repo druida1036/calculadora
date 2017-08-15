@@ -4,20 +4,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum OperacionTipo {
-	SUMA(1, "Digite 1 -Suma"), RESTA(2, "Digite 2 -Resta");
+	SUMA(1, "Digite 1 -Suma"), RESTA(2, "Digite 2 -Resta"), SALIR(99, "Digite q -Salir");
 
 	private final String texto;
-	private int valor;
+	private int codigo;
 	private static Map<Integer, OperacionTipo> map = new HashMap<Integer, OperacionTipo>();
 
-	OperacionTipo(int valor, String texto) {
-		this.setValor(valor);
+	OperacionTipo(int codigo, String texto) {
+		this.codigo = codigo;
 		this.texto = texto;
 	}
 
 	static {
 		for (OperacionTipo operacionTipo : OperacionTipo.values()) {
-			map.put(operacionTipo.valor, operacionTipo);
+			map.put(operacionTipo.codigo, operacionTipo);
 		}
 	}
 
@@ -25,12 +25,8 @@ public enum OperacionTipo {
 		return texto;
 	}
 
-	public int getValor() {
-		return valor;
-	}
-
-	public void setValor(int valor) {
-		this.valor = valor;
+	public int getCodigo() {
+		return codigo;
 	}
 
 	@Override
